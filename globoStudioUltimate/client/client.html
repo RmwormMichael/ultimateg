@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Client</title>
+    <link rel="stylesheet" href="./View/css/style.css">
+</head>
+<body>
+    <div class="contenidoLogin">
+        <div class="container">
+            <ul class="lista">
+                <li class="liLogin" id="b-profile" onclick="mostrarProfile()"> <img class="imgSvg" src="./View/img/person-circle.svg" alt="">  <a class="tamañoLetras" href="#" >Profile</a></li>
+                <li class="liLogin" id="b-settings" onclick="mostrarSettings()"> <img class="imgSvg" src="./View/img/gear.svg" alt="">  <a class="tamañoLetras" href="#" >Settings</a></li>
+                <li class="liLogin" id="b-myquotes" onclick="mostrarMyQuotes()"> <img class="imgSvg" src="./View/img/journals.svg" alt="">  <a class="tamañoLetras" href="#" >My Quotes</a></li>
+                <li class="liLogin"> <img class="imgSvg" src="/client/View/img/box.svg" alt=""> <a class="tamañoLetras"
+                    href="./index.html">Log Out</a></li>
+            </ul>
+        </div>
+
+
+
+        <main id="contenidoTemptlate">
+
+        </main>
+
+<!-- *************************************pantalla profile************************************ -->
+<template id="profile">
+    <div class="profile">
+        <div class="perfil-container">
+            <div class="img-cont-profile">
+                <img src="./View/img/profile.png" alt="Foto de perfil" class="perfil-img">
+            </div>
+        </div>
+        <div class="welcom-user">
+            <h3>Bienvenido <strong>Michael</strong></h3>
+        </div>
+        
+
+        <!-- Contenedor para los campos de información -->
+        <div class="profile-info">
+            <div class="field">
+                <strong>Email:</strong> <span>michael@example.com</span>
+            </div>
+            <div class="field">
+                <strong>Estado:</strong> <span>Activo</span>
+            </div>
+            <div class="field">
+                <strong>Nombre:</strong> <span>Michael</span>
+            </div>
+            <div class="field">
+                <strong>Apellido:</strong> <span>Rubiano</span>
+            </div>
+        </div>
+
+
+    </div>
+
+</template>
+    <!-- *************************************pantalla settings************************************ -->
+<template id="settings">
+    <div class="settings">
+        <!-- Título de la sección de configuración -->
+        <h2>Configuración</h2>
+    
+        <!-- Sección para cambiar la información básica -->
+        <div class="sectionProfile">
+            <h3>Información Personal</h3>
+            <div class="field">
+                <label for="name">Nombre:</label>
+                <input type="text" id="name" value="Michael">
+            </div>
+            <div class="field">
+                <label for="email">Correo electrónico:</label>
+                <input type="email" id="email" value="michael@example.com">
+            </div>
+        </div>
+    
+        <!-- Sección para cambiar la contraseña -->
+        <div class="sectionProfile">
+            <h3>Cambiar Contraseña</h3>
+            <div class="field">
+                <label for="current-password">Contraseña Actual:</label>
+                <input type="password" id="current-password">
+            </div>
+            <div class="field">
+                <label for="new-password">Nueva Contraseña:</label>
+                <input type="password" id="new-password">
+            </div>
+            <div class="field">
+                <label for="confirm-password">Confirmar Contraseña:</label>
+                <input type="password" id="confirm-password">
+            </div>
+        </div>
+    
+        <!-- Sección de preferencias generales -->
+        <div class="sectionProfile">
+            <h3>Preferencias</h3>
+            <div class="field">
+                <label for="notifications">Notificaciones:</label>
+                <select id="notifications">
+                    <option value="enabled">Habilitadas</option>
+                    <option value="disabled">Deshabilitadas</option>
+                </select>
+            </div>
+            <div class="field">
+                <label for="language">Idioma:</label>
+                <select id="language">
+                    <option value="es">Español</option>
+                    <option value="en">Inglés</option>
+                </select>
+            </div>
+        </div>
+    
+        <!-- Botón de guardar cambios -->
+        <button class="Guardar-cambios">
+            <span class="circle" aria-hidden="true">
+            <span class="icon arrow"></span>
+            </span>
+            <span class="button-text">Guardar</span>
+          </button>
+
+    </div>
+</template>
+<!-- *************************************pantalla MyQuotes************************************ -->
+<template id="myquotes">
+    <div class="myquotes">
+        <h3>Mis Cotizaciones</h3>
+        <button class="btn-nueva-cotizacion">Nueva Cotización</button>
+        </header>
+
+        <div class="search-filters">
+        <input type="text" placeholder="Buscar cotización..." class="search-input">
+        <select class="filter-status">
+            <option value="">Todos los estados</option>
+            <option value="activa">Activa</option>
+            <option value="aceptada">Aceptada</option>
+            <option value="rechazada">Rechazada</option>
+        </select>
+        </div>
+
+        <table class="cotizaciones-table">
+            <thead>
+                <tr>
+                    <th>Número de Cotización</th>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                    <th>Monto Total</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>001</td>
+                    <td>2023-10-01</td>
+                    <td>Activa</td>
+                    <td>$500.00</td>
+                    <td></td> <!-- Vacío, ya que los botones estarán fuera de la tabla -->
+                </tr>
+                <tr>
+                    <td>002</td>
+                    <td>2023-09-15</td>
+                    <td>Aceptada</td>
+                    <td>$300.00</td>
+                    <td></td> <!-- Vacío -->
+                </tr>
+            </tbody>
+        </table>
+        
+        <!-- Botones debajo de la tabla -->
+        <div class="tabla-botones">
+            <button class="btn-detalle">Ver Detalle</button>
+            <button class="btn-editar">Editar</button>
+            <button class="btn-eliminar">Eliminar</button>
+        </div>
+        
+            <!-- Más filas de cotizaciones -->
+        </tbody>
+        </table>
+    </div>
+</template>
+
+
+    <script src="./View/js/vista.js"></script>
+    <script src="./controller/controller.js"></script>
+</body>
+</html>
+
