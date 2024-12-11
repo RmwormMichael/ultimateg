@@ -1,15 +1,17 @@
 USE GloboStudio;
 
--- Tabla user
 CREATE TABLE user (
     id_user INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     token VARCHAR(255),
     confirmed BOOLEAN DEFAULT FALSE,
-    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    rol	VARCHAR(50)
+    password VARCHAR(255) NOT NULL, -- Nueva columna para la contraseña
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Fecha de creación
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Fecha de actualización
+    rol VARCHAR(50)
 );
+
 
 -- Tabla city
 CREATE TABLE city (
@@ -133,16 +135,17 @@ INSERT INTO city (id_city, name) VALUES
 (5, 'Cartagena');
 
 
--- Insertar los datos de usuarios
-INSERT INTO user (id_user, Name, email, token, confirmed, timestamp, rol) VALUES
-(1, 'michael', 'michael@gmail.com', 'm123', TRUE, '2024-10-25 14:30:00', 'admin'),
-(2, 'juan', 'juan@gmail.com', 'j223', TRUE, '2024-10-25 15:30:00', 'client'),
-(3, 'oscar', 'oscar@gmail.com', 'o123', TRUE, '2024-10-25 16:30:00', 'client'),
-(4, 'jhon', 'jhon@gmail.com', 'j323', TRUE, '2024-10-25 17:30:00', 'client'),
-(5, 'jorge', 'jorge@gmail.com', 'j423', TRUE, '2024-10-25 18:30:00', 'client'),
-(6, 'diego', 'diego@gmail.com', 'd123', TRUE, '2024-10-25 19:30:00', 'client'),
-(7, 'alejandro', 'alejandro@gmail.com', 'a223', TRUE, '2024-10-25 20:30:00', 'client'),
-(8, 'andres', 'andres@gmail.com', 'a123', FALSE, '2024-10-25 21:30:00', 'client');
+-- Insertar los datos de usuarios con las nuevas columnas
+INSERT INTO user (id_user, name, email, token, confirmed, password, created_at, updated_at, rol) VALUES
+(1, 'michael', 'michael@gmail.com', 'm123', TRUE, 'password_michael', '2024-10-25 14:30:00', '2024-10-25 14:30:00', 'admin'),
+(2, 'juan', 'juan@gmail.com', 'j223', TRUE, 'password_juan', '2024-10-25 15:30:00', '2024-10-25 15:30:00', 'client'),
+(3, 'oscar', 'oscar@gmail.com', 'o123', TRUE, 'password_oscar', '2024-10-25 16:30:00', '2024-10-25 16:30:00', 'client'),
+(4, 'jhon', 'jhon@gmail.com', 'j323', TRUE, 'password_jhon', '2024-10-25 17:30:00', '2024-10-25 17:30:00', 'client'),
+(5, 'jorge', 'jorge@gmail.com', 'j423', TRUE, 'password_jorge', '2024-10-25 18:30:00', '2024-10-25 18:30:00', 'client'),
+(6, 'diego', 'diego@gmail.com', 'd123', TRUE, 'password_diego', '2024-10-25 19:30:00', '2024-10-25 19:30:00', 'client'),
+(7, 'alejandro', 'alejandro@gmail.com', 'a223', TRUE, 'password_alejandro', '2024-10-25 20:30:00', '2024-10-25 20:30:00', 'client'),
+(8, 'andres', 'andres@gmail.com', 'a123', FALSE, 'password_andres', '2024-10-25 21:30:00', '2024-10-25 21:30:00', 'client');
+
 
 
 -- Insertar los puntos
