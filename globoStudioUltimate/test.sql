@@ -50,7 +50,8 @@ CREATE TABLE product (
     id_product INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
-    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Fecha de creación
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Fecha de actualización
     size INT,
     color INT,
     id_category INT,
@@ -59,7 +60,7 @@ CREATE TABLE product (
     FOREIGN KEY (id_category) REFERENCES category(id_category) ON DELETE CASCADE
 );
 
--- Tabla orders
+
 CREATE TABLE orders (
     id_order INT AUTO_INCREMENT PRIMARY KEY,
     points INT,
@@ -68,10 +69,12 @@ CREATE TABLE orders (
     direction VARCHAR(255),
     id_user INT,
     id_city INT,
-	timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Fecha de creación
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Fecha de última actualización
     FOREIGN KEY (id_user) REFERENCES user(id_user) ON DELETE CASCADE,
     FOREIGN KEY (id_city) REFERENCES city(id_city) ON DELETE CASCADE
 );
+
 
 
 
@@ -83,10 +86,12 @@ CREATE TABLE order_item (
     price DECIMAL(10, 2) NOT NULL,
     id_order INT,
     id_product INT,
-	timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Fecha de creación
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  -- Fecha de última actualización
     FOREIGN KEY (id_order) REFERENCES orders(id_order) ON DELETE CASCADE,
     FOREIGN KEY (id_product) REFERENCES product(id_product) ON DELETE CASCADE
 );
+
 
 
 
@@ -154,38 +159,43 @@ INSERT INTO points (id_user, number_points) VALUES
 (2, 100),
 (3, 150);
 
--- Insertar los productos
-INSERT INTO product (name, price, timestamp, size, color, id_category)
+-- Insertar los productos con las nuevas columnas created_at y updated_at
+INSERT INTO product (name, price, created_at, updated_at, size, color, id_category)
 VALUES 
-('link-o-loon', 3.500, '2024-10-25 14:30:00', 1, 2, 1),
-('redondo', 3.000, '2024-10-25 14:30:00', 2, 4, 1),
-('globo 1-60', 4.000, '2024-10-25 14:30:00', 4, 7, 1),
-('globo 2-60', 4.500, '2024-10-25 14:30:00', 6, 6, 1),
-('globo metalizado corazon', 5.000, '2024-10-25 14:30:00', 6, 9, 2),
-('globo metalizado estrella', 5.500, '2024-10-25 14:30:00', 5, 8, 2),
-('globo metalizado numero uno', 6.000, '2024-10-25 14:30:00', 4, 9, 2),
-('globo metalizado cara feliz', 7.000, '2024-10-25 14:30:00', 1, 10, 2);
+('link-o-loon', 3.500, '2024-10-25 14:30:00', '2024-10-25 14:30:00', 1, 2, 1),
+('redondo', 3.000, '2024-10-25 14:30:00', '2024-10-25 14:30:00', 2, 4, 1),
+('globo 1-60', 4.000, '2024-10-25 14:30:00', '2024-10-25 14:30:00', 4, 7, 1),
+('globo 2-60', 4.500, '2024-10-25 14:30:00', '2024-10-25 14:30:00', 6, 6, 1),
+('globo metalizado corazon', 5.000, '2024-10-25 14:30:00', '2024-10-25 14:30:00', 6, 9, 2),
+('globo metalizado estrella', 5.500, '2024-10-25 14:30:00', '2024-10-25 14:30:00', 5, 8, 2),
+('globo metalizado numero uno', 6.000, '2024-10-25 14:30:00', '2024-10-25 14:30:00', 4, 9, 2),
+('globo metalizado cara feliz', 7.000, '2024-10-25 14:30:00', '2024-10-25 14:30:00', 1, 10, 2);
 
--- Insertar las ordenes
-INSERT INTO orders ( points, status, date_order, timestamp, direction, id_user, id_city) VALUES
-( 1, NULL, '2024-10-25', '2024-10-25 14:30:00', 'Avenida 19 No. 98-03', 1, 1),
-( 2, NULL, '2024-10-25', '2024-10-25 14:30:00', 'Calle 53 No 10-60/46', 2, 2),
-( 3, NULL, '2024-10-25', '2024-10-25 14:30:00', 'Calle 10 # 5-51', 3, 3),
-( 1, NULL, '2024-10-25', '2024-10-25 14:30:00', 'Avenida Calle 26 No 59-51', 4, 4),
-( 2, NULL, '2024-10-25', '2024-10-25 14:30:00', 'Calle 9 # 9 – 62', 5, 5),
-( 3, NULL, '2024-10-25', '2024-10-25 14:30:00', 'Calle 19 # 80A-40', 6, 1),
-( 1, NULL, '2024-10-25', '2024-10-25 14:30:00', 'Carrera 21 # 17 -63', 7, 2),
-( 2, NULL, '2024-10-25', '2024-10-25 14:30:00', 'Carrera 42 # 54-77', 8, 3);
+
+-- Insertar las órdenes 
+INSERT INTO orders (points, status, date_order, created_at, updated_at, direction, id_user, id_city)
+VALUES
+(1, NULL, '2024-10-25', '2024-10-25 14:30:00', '2024-10-25 14:30:00', 'Avenida 19 No. 98-03', 1, 1),
+(2, NULL, '2024-10-25', '2024-10-25 14:30:00', '2024-10-25 14:30:00', 'Calle 53 No 10-60/46', 2, 2),
+(3, NULL, '2024-10-25', '2024-10-25 14:30:00', '2024-10-25 14:30:00', 'Calle 10 # 5-51', 3, 3),
+(1, NULL, '2024-10-25', '2024-10-25 14:30:00', '2024-10-25 14:30:00', 'Avenida Calle 26 No 59-51', 4, 4),
+(2, NULL, '2024-10-25', '2024-10-25 14:30:00', '2024-10-25 14:30:00', 'Calle 9 # 9 – 62', 5, 5),
+(3, NULL, '2024-10-25', '2024-10-25 14:30:00', '2024-10-25 14:30:00', 'Calle 19 # 80A-40', 6, 1),
+(1, NULL, '2024-10-25', '2024-10-25 14:30:00', '2024-10-25 14:30:00', 'Carrera 21 # 17 -63', 7, 2),
+(2, NULL, '2024-10-25', '2024-10-25 14:30:00', '2024-10-25 14:30:00', 'Carrera 42 # 54-77', 8, 3);
+
 
 -- HACE FALTA REFERENCIAR PUNTOS
 
 -- Insertar los items de la orden
-INSERT INTO order_item ( quantity, price,  id_order, id_product, timestamp) VALUES
-( 10, 35000,3,1,'2024-10-25 14:30:00'),
-( 20, 60000,4,1,'2024-10-25 14:30:00'),
-( 30, 120000,3,3,'2024-10-25 14:30:00'),
-( 40, 180000,4,4,'2024-10-25 14:30:00'),
-( 10, 50000,5,5,'2024-10-25 14:30:00'),
-( 20, 110000,6,6,'2024-10-25 14:30:00'),
-( 30, 180000,7,7,'2024-10-25 14:30:00'),
-( 40, 210000,8,8,'2024-10-25 14:30:00');
+INSERT INTO order_item (quantity, price, id_order, id_product, created_at, updated_at) 
+VALUES
+(10, 35000, 3, 1, '2024-10-25 14:30:00', '2024-10-25 14:30:00'),
+(20, 60000, 4, 1, '2024-10-25 14:30:00', '2024-10-25 14:30:00'),
+(30, 120000, 3, 3, '2024-10-25 14:30:00', '2024-10-25 14:30:00'),
+(40, 180000, 4, 4, '2024-10-25 14:30:00', '2024-10-25 14:30:00'),
+(10, 50000, 5, 5, '2024-10-25 14:30:00', '2024-10-25 14:30:00'),
+(20, 110000, 6, 6, '2024-10-25 14:30:00', '2024-10-25 14:30:00'),
+(30, 180000, 7, 7, '2024-10-25 14:30:00', '2024-10-25 14:30:00'),
+(40, 210000, 8, 8, '2024-10-25 14:30:00', '2024-10-25 14:30:00');
+
